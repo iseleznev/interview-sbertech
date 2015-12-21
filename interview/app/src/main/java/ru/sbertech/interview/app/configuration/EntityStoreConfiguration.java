@@ -5,9 +5,9 @@ import java.io.InputStreamReader;
 import org.springframework.context.annotation.Bean;
 
 import ru.sbertech.interview.core.converter.JsonEntityConverter;
-import ru.sbertech.interview.core.json.provider.ReaderJsonStringProvider;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
 import ru.sbertech.interview.core.repository.jpa.JpaEntityStoreRepository;
+import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 
 public class EntityStoreConfiguration {
 	

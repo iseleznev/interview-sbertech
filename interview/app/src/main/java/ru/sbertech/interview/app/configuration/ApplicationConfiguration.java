@@ -15,8 +15,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
-import ru.sbertech.interview.core.json.provider.JsonStringProvider;
-import ru.sbertech.interview.core.json.provider.ReaderJsonStringProvider;
+import ru.sbertech.interview.json.provider.JsonStringProvider;
+import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 
 @Configuration
 @ComponentScan("ru.sbertech.interview")

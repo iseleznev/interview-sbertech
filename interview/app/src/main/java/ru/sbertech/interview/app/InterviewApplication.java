@@ -10,8 +10,8 @@ import ru.sbertech.interview.app.configuration.ApplicationConfiguration;
 import ru.sbertech.interview.app.configuration.EntityStoreConfiguration;
 import ru.sbertech.interview.core.converter.JsonEntityConverter;
 import ru.sbertech.interview.core.dispatcher.ValueEntityStoreDispatcher;
-import ru.sbertech.interview.core.json.provider.ReaderJsonStringProvider;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
+import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 
 public class InterviewApplication 
 {
@@ -65,7 +65,7 @@ public class InterviewApplication
     	
     	ReaderJsonStringProvider provider = new ReaderJsonStringProvider();
     	provider.setReader(new InputStreamReader(System.in));
-    	jsonEntityConverter.setProvider(provider);
+    	jsonEntityConverter.setJsonProvider(provider);
     	
     	dispatcher.dispatch(jsonEntityConverter);
     	
