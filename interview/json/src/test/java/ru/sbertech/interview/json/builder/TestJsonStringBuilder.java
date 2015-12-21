@@ -1,4 +1,4 @@
-package ru.sbertech.interview.json;
+package ru.sbertech.interview.json.builder;
 
 import static org.junit.Assert.*;
 
