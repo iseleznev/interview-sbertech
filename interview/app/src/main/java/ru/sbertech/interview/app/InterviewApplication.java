@@ -1,7 +1,6 @@
 package ru.sbertech.interview.app;
 
 import java.io.InputStreamReader;
-import java.util.HashMap;
 import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import ru.sbertech.interview.app.configuration.EntityStoreConfiguration;
 import ru.sbertech.interview.core.converter.JsonEntityConverter;
 import ru.sbertech.interview.core.dispatcher.ValueEntityStoreDispatcher;
 import ru.sbertech.interview.core.json.provider.ReaderJsonStringProvider;
+import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
 
 public class InterviewApplication 
 {
@@ -22,20 +22,18 @@ public class InterviewApplication
 	@Autowired
 	private JsonEntityConverter jsonEntityConverter;
 	
-	private final HashMap<String, String> parameters = new HashMap<String, String>(); 
-	
     public static void main( String[] args )
     {
     	try {
 
     		initializeApplicationContext();
 
-    		String filename = DEFAULT_PROPERTY_OUTPUT_FILENAME;
+    		String filename = FileEntityStoreRepository.DEFAULT_PROPERTY_OUTPUT_FILENAME;
     		
     		if (args.length > 0) {
     			filename = args[0];
     		}
-    		setProperty(PROPERTY_OUTPUT_FILENAME, filename);
+    		setProperty(FileEntityStoreRepository.PROPERTY_OUTPUT_FILENAME, filename);
     		
     		InterviewApplication application = new InterviewApplication();
         	application.start();
@@ -72,9 +70,5 @@ public class InterviewApplication
     	dispatcher.dispatch(jsonEntityConverter);
     	
     }
-    
-	public HashMap<String, String> getParameters() {
-		return parameters;
-	}
     
 }

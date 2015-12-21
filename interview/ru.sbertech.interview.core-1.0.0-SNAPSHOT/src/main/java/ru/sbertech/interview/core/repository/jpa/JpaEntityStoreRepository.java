@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.sbertech.interview.core.entity.ValueEntity;
+import ru.sbertech.interview.core.jpa.service.impl.ValueEntityServiceImpl;
 import ru.sbertech.interview.store.repository.EntityStoreRepository;
+
 
 public class JpaEntityStoreRepository implements EntityStoreRepository {
 
