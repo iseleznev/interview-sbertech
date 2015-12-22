@@ -37,7 +37,6 @@ public class ReaderJsonStringProvider implements JsonStringProvider {
 	}
 	
 	private boolean read(String jsonLine) {
-		//String jsonLine = jsonProvider.readJsonString();
 		jsonBuilder.add(jsonLine);
 		return !"".equals(jsonLine) && !jsonBuilder.isValid();
 	}

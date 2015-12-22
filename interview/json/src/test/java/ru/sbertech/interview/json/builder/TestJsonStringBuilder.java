@@ -9,6 +9,11 @@ import ru.sbertech.interview.json.builder.JsonStringBuilder;
 
 public class TestJsonStringBuilder {
 
+	private static final String TEST_VALID_JSON_STRING = 
+			"{ \n" +
+            "    \"target\": \"database\", \n" +
+            "    \"value\": \"test\" \n" +
+            "}";
 
 	private JsonStringBuilder jsonBuilder;
 	
@@ -19,12 +24,7 @@ public class TestJsonStringBuilder {
 
 	@Test
 	public void testAdd() {
-		jsonBuilder
-		.add("{ \n")
-		.add("    \"target\": \"database\", \n")
-		.add("    \"value\": \"test\" \n")
-		.add("}");
-		assertTrue(jsonBuilder.toString(), jsonBuilder.isValid());
+		assertTrue(TEST_VALID_JSON_STRING, jsonBuilder.isValid());		
 	}
 
 	@Test
@@ -54,11 +54,7 @@ public class TestJsonStringBuilder {
 
 	@Test
 	public void testToString() {
-		jsonBuilder
-		.add("{ \n")
-		.add("    \"target\": \"database\", \n")
-		.add("    \"value\": \"test\" \n")
-		.add("}");
+		jsonBuilder.add(TEST_VALID_JSON_STRING);
 		assertTrue(jsonBuilder.toString(), jsonBuilder.toString().equals(jsonBuilder.toString()));
 	}
 

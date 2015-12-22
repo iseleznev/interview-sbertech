@@ -12,8 +12,6 @@ public class FileTransactionalListener extends TransactionSynchronizationAdapter
 		this.file = file;
 	}
 	
-	
-	
 	@Override
 	public void afterCompletion(int status) {
 		

@@ -5,8 +5,8 @@ import org.springframework.context.ApplicationContext;
 
 import ru.sbertech.interview.core.entity.ValueEntity;
 import ru.sbertech.interview.core.entity.target.TargetType;
+import ru.sbertech.interview.core.repository.dao.DaoEntityStoreRepository;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
-import ru.sbertech.interview.core.repository.jpa.JpaEntityStoreRepository;
 import ru.sbertech.interview.store.dispatcher.AbstractEntityStoreDispatcher;
 import ru.sbertech.interview.store.repository.EntityStoreRepository;
 
@@ -18,11 +18,10 @@ public class ValueEntityStoreDispatcher extends AbstractEntityStoreDispatcher<Va
 	@Override
 	protected EntityStoreRepository getStoreRepository(ValueEntity entity) {
 
-		EntityStoreRepository repository = null;
-		
+		EntityStoreRepository repository = null;		
 
 		if (entity.getTargetType() == TargetType.DATABASE)
-			repository = applicationContext.getBean(JpaEntityStoreRepository.class);
+			repository = applicationContext.getBean(DaoEntityStoreRepository.class);
 
 		if (entity.getTargetType() == TargetType.FILE)
 			repository = applicationContext.getBean(FileEntityStoreRepository.class);

@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import ru.sbertech.interview.app.configuration.ApplicationConfiguration;
-import ru.sbertech.interview.app.configuration.EntityStoreConfiguration;
 import ru.sbertech.interview.core.converter.JsonEntityConverter;
 import ru.sbertech.interview.core.dispatcher.ValueEntityStoreDispatcher;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
-import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 
 public class InterviewApplication 
 {
@@ -47,11 +45,8 @@ public class InterviewApplication
     public static AnnotationConfigApplicationContext initializeApplicationContext() {
 
     	AnnotationConfigApplicationContext applicationContext = 
-    			new AnnotationConfigApplicationContext(); 
+    			new AnnotationConfigApplicationContext(ApplicationConfiguration.class); 
 
-    	applicationContext.register(ApplicationConfiguration.class);
-    	applicationContext.register(EntityStoreConfiguration.class);
-    	applicationContext.refresh();
     	return applicationContext;
     	
     }
@@ -62,10 +57,6 @@ public class InterviewApplication
     }
 
     public void start() throws Exception { 
-    	
-    	ReaderJsonStringProvider provider = new ReaderJsonStringProvider();
-    	provider.setReader(new InputStreamReader(System.in));
-    	jsonEntityConverter.setJsonProvider(provider);
     	
     	dispatcher.dispatch(jsonEntityConverter);
     	
