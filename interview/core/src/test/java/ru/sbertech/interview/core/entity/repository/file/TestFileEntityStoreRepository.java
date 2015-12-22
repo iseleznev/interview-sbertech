@@ -9,9 +9,9 @@ import java.io.ObjectInputStream;
 import org.junit.Test;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.sbertech.interview.core.entity.ValueEntity;
-import ru.sbertech.interview.core.entity.target.TargetType;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
+import ru.sbertech.interview.core.value.ValueContainer;
+import ru.sbertech.interview.core.value.target.TargetType;
 
 public class TestFileEntityStoreRepository {
 
@@ -21,7 +21,7 @@ public class TestFileEntityStoreRepository {
 		
 		FileEntityStoreRepository repository = new FileEntityStoreRepository();
 		
-		ValueEntity entity = new ValueEntity();
+		ValueContainer entity = new ValueContainer();
 		entity.setTargetType(TargetType.FILE);
 		entity.setValue("stringValue");
 		
@@ -31,7 +31,7 @@ public class TestFileEntityStoreRepository {
 
 		FileInputStream fileStream = new FileInputStream(file); 
 		ObjectInputStream inputStream = new ObjectInputStream(fileStream);
-		ValueEntity readEntity = (ValueEntity) inputStream.readObject();
+		ValueContainer readEntity = (ValueContainer) inputStream.readObject();
 		fileStream.close();
 		
 		assertTrue(readEntity.getTargetType().equals(entity.getTargetType()));

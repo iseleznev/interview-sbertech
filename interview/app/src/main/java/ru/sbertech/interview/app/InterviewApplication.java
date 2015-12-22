@@ -1,31 +1,30 @@
 package ru.sbertech.interview.app;
 
-import java.io.InputStreamReader;
 import java.util.Properties;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import ru.sbertech.interview.app.configuration.ApplicationConfiguration;
-import ru.sbertech.interview.core.converter.JsonEntityConverter;
+import ru.sbertech.interview.core.converter.JsonValueConverter;
 import ru.sbertech.interview.core.dispatcher.ValueEntityStoreDispatcher;
 import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
 
 public class InterviewApplication 
 {
 	
-	@Autowired
-	private ValueEntityStoreDispatcher dispatcher;
+	private static ValueEntityStoreDispatcher dispatcher;
 	
-	@Autowired
-	private JsonEntityConverter jsonEntityConverter;
+	private static JsonValueConverter jsonEntityConverter;
 	
-    public static void main( String[] args )
+    public static void main( String[] args ) 
     {
     	try {
 
-    		initializeApplicationContext();
-
+    		AnnotationConfigApplicationContext applicationContext = initializeApplicationContext();
+        	dispatcher = applicationContext.getBean(ValueEntityStoreDispatcher.class);
+        	jsonEntityConverter = applicationContext.getBean(JsonValueConverter.class);
+        	
+    		
     		String filename = FileEntityStoreRepository.DEFAULT_PROPERTY_OUTPUT_FILENAME;
     		
     		if (args.length > 0) {
@@ -33,19 +32,17 @@ public class InterviewApplication
     		}
     		setProperty(FileEntityStoreRepository.PROPERTY_OUTPUT_FILENAME, filename);
     		
-    		InterviewApplication application = new InterviewApplication();
-        	application.start();
+        	dispatcher.dispatch(jsonEntityConverter);
     	}
     	catch (Exception ex) {
     		ex.printStackTrace();
     	}
-    	
     }
     
     public static AnnotationConfigApplicationContext initializeApplicationContext() {
 
     	AnnotationConfigApplicationContext applicationContext = 
-    			new AnnotationConfigApplicationContext(ApplicationConfiguration.class); 
+    			new AnnotationConfigApplicationContext(ApplicationConfiguration.class);    	
 
     	return applicationContext;
     	
@@ -56,10 +53,4 @@ public class InterviewApplication
     	properties.setProperty(key, value);
     }
 
-    public void start() throws Exception { 
-    	
-    	dispatcher.dispatch(jsonEntityConverter);
-    	
-    }
-    
 }

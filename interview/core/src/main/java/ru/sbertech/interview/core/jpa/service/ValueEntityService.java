@@ -1,13 +1,13 @@
 package ru.sbertech.interview.core.jpa.service;
 
 
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.NoRepositoryBean;
 
-import ru.sbertech.interview.core.entity.ValueEntity;
+import ru.sbertech.interview.core.jpa.entity.ValueEntity;
 
+@NoRepositoryBean
 public interface ValueEntityService {
 	
-	@Transactional
 	public void save(ValueEntity entity);
 
 }
