@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 
 import ru.sbertech.interview.core.configuration.JpaConfiguration;
 import ru.sbertech.interview.core.converter.JsonValueConverter;
-import ru.sbertech.interview.core.value.repository.file.FileValueStoreRepository;
+import ru.sbertech.interview.core.value.repository.file.FileValueService;
 import ru.sbertech.interview.json.provider.JsonStringProvider;
 import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 
@@ -19,8 +19,8 @@ import ru.sbertech.interview.json.provider.ReaderJsonStringProvider;
 public class ApplicationContextTestConfiguration {
 
 	@Bean
-	public FileValueStoreRepository fileEntityStoreRepository() {
-		return new FileValueStoreRepository();
+	public FileValueService fileEntityStoreRepository() {
+		return new FileValueService();
 	}
 	
 	@Bean

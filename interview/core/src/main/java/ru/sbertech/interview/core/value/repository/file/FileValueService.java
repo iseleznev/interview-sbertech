@@ -15,10 +15,10 @@ import ru.sbertech.interview.core.jpa.entity.ValueEntity;
 import ru.sbertech.interview.core.jpa.entity.fabric.ValueEntityFabric;
 import ru.sbertech.interview.core.value.ValueContainer;
 import ru.sbertech.interview.store.exception.FailedSaveValueException;
-import ru.sbertech.interview.store.repository.ValueStoreRepository;
+import ru.sbertech.interview.store.service.ValueService;
 
 @Service
-public class FileValueStoreRepository implements ValueStoreRepository {
+public class FileValueService implements ValueService {
 
 	public static final String PROPERTY_OUTPUT_FILENAME = "output.filename";
 	public static final String DEFAULT_PROPERTY_OUTPUT_FILENAME = "value.bin";
@@ -29,6 +29,7 @@ public class FileValueStoreRepository implements ValueStoreRepository {
 	@Override
 	@Transactional
 	public void save(Object value) {
+		
 		
 		Properties properties = System.getProperties();
 		

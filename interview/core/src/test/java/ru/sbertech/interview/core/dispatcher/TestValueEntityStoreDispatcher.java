@@ -6,17 +6,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ru.sbertech.interview.core.value.ValueContainer;
-import ru.sbertech.interview.core.value.repository.file.FileValueStoreRepository;
+import ru.sbertech.interview.core.value.repository.file.FileValueService;
 import ru.sbertech.interview.core.value.target.TargetType;
-import ru.sbertech.interview.store.repository.ValueStoreRepository;
+import ru.sbertech.interview.store.service.ValueService;
 
 public class TestValueEntityStoreDispatcher {
 
-	private ValueEntityStoreDispatcher dispatcher;
+	private ValueStoreDispatcher dispatcher;
 	
 	@Before
 	public void setUp() {
-		dispatcher = new ValueEntityStoreDispatcher();
+		dispatcher = new ValueStoreDispatcher();
 	}
 	
 	@Test
@@ -26,8 +26,8 @@ public class TestValueEntityStoreDispatcher {
 		container.setTargetType(TargetType.FILE);
 		container.setValue("storeValueTestCase");
 		
-		ValueStoreRepository repository = dispatcher.getStoreRepository(container);
-		assertTrue(repository instanceof FileValueStoreRepository);
+		ValueService repository = dispatcher.getStoreRepository(container);
+		assertTrue(repository instanceof FileValueService);
 	}
 
 	@Test

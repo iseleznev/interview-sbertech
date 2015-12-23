@@ -7,24 +7,24 @@ import org.springframework.stereotype.Component;
 import ru.sbertech.interview.core.value.ValueContainer;
 import ru.sbertech.interview.core.value.target.TargetType;
 import ru.sbertech.interview.store.dispatcher.AbstractValueStoreDispatcher;
-import ru.sbertech.interview.store.repository.ValueStoreRepository;
+import ru.sbertech.interview.store.service.ValueService;
 
 @Component
-public class ValueEntityStoreDispatcher extends AbstractValueStoreDispatcher<ValueContainer> {
+public class ValueStoreDispatcher extends AbstractValueStoreDispatcher<ValueContainer> {
 
 	@Autowired
 	private ApplicationContext applicationContext;
 	
 	@Override
-	public ValueStoreRepository getStoreRepository(ValueContainer entity) {
+	public ValueService getStoreRepository(ValueContainer entity) {
 
-		ValueStoreRepository repository = null;		
+		ValueService repository = null;		
 
 		if (entity.getTargetType() == TargetType.DATABASE)
-			repository = (ValueStoreRepository) applicationContext.getBean("jpaValueStoreRepository");
+			repository = (ValueService) applicationContext.getBean("jpaValueService");
 
 		if (entity.getTargetType() == TargetType.FILE)
-			repository = (ValueStoreRepository) applicationContext.getBean("fileValueStoreRepository");
+			repository = (ValueService) applicationContext.getBean("fileValueService");
 
 		return repository;
 	}

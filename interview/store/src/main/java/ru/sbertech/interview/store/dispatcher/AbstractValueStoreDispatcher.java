@@ -1,7 +1,7 @@
 package ru.sbertech.interview.store.dispatcher;
 
-import ru.sbertech.interview.store.repository.ValueStoreRepository;
 import ru.sbertech.interview.store.converter.ValueConverter;
+import ru.sbertech.interview.store.service.ValueService;
 
 public abstract class AbstractValueStoreDispatcher<T> {
 	
@@ -9,11 +9,11 @@ public abstract class AbstractValueStoreDispatcher<T> {
 		
 		T value = valueConverter.convert();
 		
-	    ValueStoreRepository repository = getStoreRepository(value);
+	    ValueService repository = getStoreRepository(value);
 		repository.save(value);
 			
 	}
 	
-	public abstract ValueStoreRepository getStoreRepository(T value);
+	public abstract ValueService getStoreRepository(T value);
 
 }
