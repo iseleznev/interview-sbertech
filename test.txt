@@ -1,9 +1,0 @@
-{
-    "target": "file",
-    "value": "test"
-}
-
-{
-    "target": "database",
-    "value": "test"
-}
