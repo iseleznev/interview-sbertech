@@ -12,13 +12,16 @@ public class ValueAttributeConverter implements AttributeConverter<Object, byte[
 
 	@Override
 	public byte[] convertToDatabaseColumn(Object attribute) {
-		
+
+		if (null == attribute) {
+			return null;
+		}
 		ByteArrayOutputStream byteArrayStream = new ByteArrayOutputStream();		
-		ObjectOutputStream outputStream = null;
+		ObjectOutputStream objectStream = null;
 		try {
-			outputStream = new ObjectOutputStream(byteArrayStream);
-			outputStream.writeObject(attribute);
-			outputStream.close();
+			objectStream = new ObjectOutputStream(byteArrayStream);
+			objectStream.writeObject(attribute);
+			objectStream.close();
 			return byteArrayStream.toByteArray();
 			
 		} catch (IOException e) {
@@ -29,21 +32,35 @@ public class ValueAttributeConverter implements AttributeConverter<Object, byte[
 	@Override
 	public Object convertToEntityAttribute(byte[] dbData) {
 		
+		if (null == dbData) {
+			return null;
+		}
+		
 		ByteArrayInputStream byteArrayStream = new ByteArrayInputStream(dbData);
-		ObjectInputStream inputStream = null;
+		ObjectInputStream objectStream = null;
 		
 		try {			
-			inputStream = new ObjectInputStream(byteArrayStream);
-			Object result = inputStream.readObject();
-			inputStream.close();
+			objectStream = new ObjectInputStream(byteArrayStream);
+			Object result = objectStream.readObject();
+			objectStream.close();
 			
 			return result;
 			
 		} catch (IOException ex) {			
-			throw new IllegalArgumentException("Input stream error has occured.", ex);
+			StringBuilder message = new StringBuilder();
+			message
+			.append("An IOException thrown in deserialization method fro database: ")
+			.append(ex.getMessage());
+			
+			throw new IllegalArgumentException(message.toString(), ex);
 			
 		} catch (ClassNotFoundException ex) {			
-			throw new IllegalArgumentException("Class not found for deserialization from database.", ex);
+			StringBuilder message = new StringBuilder();
+			message
+			.append("An ClassNotFoundException thrown in deserialization method from database: ")
+			.append(ex.getMessage());
+
+			throw new IllegalArgumentException(message.toString(), ex);
 			
 		}
 	}

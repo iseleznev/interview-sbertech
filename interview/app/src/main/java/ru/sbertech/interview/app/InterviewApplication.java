@@ -7,14 +7,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import ru.sbertech.interview.app.configuration.ApplicationConfiguration;
 import ru.sbertech.interview.core.converter.JsonValueConverter;
 import ru.sbertech.interview.core.dispatcher.ValueEntityStoreDispatcher;
-import ru.sbertech.interview.core.repository.file.FileEntityStoreRepository;
+import ru.sbertech.interview.core.value.repository.file.FileValueStoreRepository;
 
 public class InterviewApplication 
 {
 	
 	private static ValueEntityStoreDispatcher dispatcher;
 	
-	private static JsonValueConverter jsonEntityConverter;
+	private static JsonValueConverter jsonValueConverter;
 	
     public static void main( String[] args ) 
     {
@@ -22,17 +22,17 @@ public class InterviewApplication
 
     		AnnotationConfigApplicationContext applicationContext = initializeApplicationContext();
         	dispatcher = applicationContext.getBean(ValueEntityStoreDispatcher.class);
-        	jsonEntityConverter = applicationContext.getBean(JsonValueConverter.class);
+        	jsonValueConverter = applicationContext.getBean(JsonValueConverter.class);
         	
     		
-    		String filename = FileEntityStoreRepository.DEFAULT_PROPERTY_OUTPUT_FILENAME;
+    		String filename = FileValueStoreRepository.DEFAULT_PROPERTY_OUTPUT_FILENAME;
     		
     		if (args.length > 0) {
     			filename = args[0];
     		}
-    		setProperty(FileEntityStoreRepository.PROPERTY_OUTPUT_FILENAME, filename);
+    		setProperty(FileValueStoreRepository.PROPERTY_OUTPUT_FILENAME, filename);
     		
-        	dispatcher.dispatch(jsonEntityConverter);
+        	dispatcher.dispatch(jsonValueConverter);
     	}
     	catch (Exception ex) {
     		ex.printStackTrace();

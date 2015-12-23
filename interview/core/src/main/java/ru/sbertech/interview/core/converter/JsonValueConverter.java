@@ -3,7 +3,6 @@ package ru.sbertech.interview.core.converter;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -13,7 +12,6 @@ import ru.sbertech.interview.core.value.ValueContainer;
 import ru.sbertech.interview.json.provider.JsonStringProvider;
 import ru.sbertech.interview.store.converter.ValueConverter;
 
-@Service
 public class JsonValueConverter implements ValueConverter<ValueContainer> {
 
 	private JsonStringProvider jsonProvider;

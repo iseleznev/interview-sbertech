@@ -18,6 +18,7 @@ public class ValueEntityServiceImpl implements ValueEntityService {
 	public void save(ValueEntity entity) {
 		
 		crudRepository.save(entity);
+
 	}
 
 

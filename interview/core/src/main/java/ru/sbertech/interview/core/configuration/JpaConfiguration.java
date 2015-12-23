@@ -1,5 +1,6 @@
 package ru.sbertech.interview.core.configuration;
 
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -17,6 +18,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
+@PropertySource("classpath:jpa.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("ru.sbertech.interview.core.jpa")
 public class JpaConfiguration {
@@ -30,20 +32,22 @@ public class JpaConfiguration {
 	private static final String PROPERTY_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 	private static final String PROPERTY_HIBERNATE_HBM2DDL_AUTO = "hibernate.hbm2ddl.auto";
 	
-	private static final String ENTITY_MANAGER_PACKAGES_TO_SCAN = "ru.sbertech.interview.core.jpa"; 
-
+	private static final String ENTITY_MANAGER_PACKAGES_TO_SCAN = "ru.sbertech.interview.core.jpa";
+	
+	
 	@Resource
 	private Environment environment;
-	
+
 	@Bean(name = "transactionManager")
-	public JpaTransactionManager getTransactionManager() {
+	public JpaTransactionManager getTransactionManager() throws IOException {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject()); 
         return transactionManager;		
 	}
 	
 	@Bean
-	public DataSource dataSource() {
+	public DataSource dataSource() throws IOException {		
+		
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(environment.getRequiredProperty(PROPERTY_DATABASE_DRIVER));
         dataSource.setUrl(environment.getRequiredProperty(PROPERTY_DATABASE_CONNECTION_URL));
@@ -53,11 +57,11 @@ public class JpaConfiguration {
 	}
 	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws IOException {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-        entityManagerFactoryBean.setPackagesToScan(environment.getRequiredProperty(ENTITY_MANAGER_PACKAGES_TO_SCAN));
+        entityManagerFactoryBean.setPackagesToScan(ENTITY_MANAGER_PACKAGES_TO_SCAN);
  
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
         entityManagerFactoryBean.afterPropertiesSet();

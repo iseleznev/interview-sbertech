@@ -1,6 +1,6 @@
 package ru.sbertech.interview.store.exception;
 
-public class FailedSaveValueException extends Exception {
+public class FailedSaveValueException extends RuntimeException {
 	
 	private static final long serialVersionUID = 4692192739518878110L;
 

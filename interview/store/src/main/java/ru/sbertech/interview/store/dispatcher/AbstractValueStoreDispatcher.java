@@ -14,6 +14,6 @@ public abstract class AbstractValueStoreDispatcher<T> {
 			
 	}
 	
-	protected abstract ValueStoreRepository getStoreRepository(T value);
+	public abstract ValueStoreRepository getStoreRepository(T value);
 
 }

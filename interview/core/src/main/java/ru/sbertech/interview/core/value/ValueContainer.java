@@ -4,13 +4,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import ru.sbertech.interview.core.value.target.TargetType;
+import ru.sbertech.interview.core.value.target.TargetTypeJsonDeserializer;
 
 @Entity
 @Table(name = "entity")
 public class ValueContainer {
 	
-	private transient TargetType targetType;
+	@JsonProperty("target")
+	@JsonDeserialize(using = TargetTypeJsonDeserializer.class)
+	private TargetType targetType;
 	
 	@Column(name = "value")
 	private Object value;
